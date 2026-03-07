@@ -88,3 +88,19 @@ body {
 .game-info {
   margin-left: 20px;
 }
+.game-info span {
+  margin-right: 10px;
+}
+
+.current-move {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 21px;
+
+  font-size: 12px;
+  background-color: #999;
+  color: #fff;
+  border-radius: 3px;
+  padding: 1px 6px;
+}
