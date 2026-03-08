@@ -94,19 +94,36 @@ export default function Game() {
     setCurrentMove(nextMove);
   }
 
-  const moves = history.map((_squares, move) => {
-    let displayEl;
-    if (move === currentMove) {
-      displayEl = (
-        <span className="current-move">{`You are at move #${move}`}</span>
+  const moves = history.map((squares, move) => {
+    let movePosition = "";
+
+    if (move > 0) {
+      const prevSquares = history[move - 1];
+      const changedIndex = squares.findIndex(
+        (square, i) => square !== prevSquares[i],
       );
-    } else {
-      displayEl = (
-        <button onClick={() => jumpTo(move)}>
-          {move > 0 ? `Go to move #${move}` : "Go to game start"}
-        </button>
-      );
+
+      const row = Math.floor(changedIndex / 3) + 1;
+      const col = (changedIndex % 3) + 1;
+
+      movePosition = ` (${row}, ${col})`;
     }
+
+    let description = "";
+    if (move === currentMove) {
+      description = `You are at move #${move}${movePosition}`;
+    } else if (move === 0) {
+      description = "Go to game start";
+    } else {
+      description = `Go to move #${move}${movePosition}`;
+    }
+
+    const displayEl =
+      move === currentMove ? (
+        <span className="current-move">{description}</span>
+      ) : (
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      );
 
     return <li key={move}>{displayEl}</li>;
   });
