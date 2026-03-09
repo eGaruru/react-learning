@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const BOARD_SIZE = 3;
+
 function Square({ value, isSquareWinner, onClickSquare }) {
   return (
     <button
@@ -41,11 +43,11 @@ function Board({ xIsNext, squares, onPlay }) {
 
   const boardRow = [];
 
-  for (let row = 0; row < 3; row++) {
+  for (let row = 0; row < BOARD_SIZE; row++) {
     const rowSquares = [];
 
-    for (let col = 0; col < 3; col++) {
-      const index = row * 3 + col;
+    for (let col = 0; col < BOARD_SIZE; col++) {
+      const index = row * BOARD_SIZE + col;
       const isSquareWinner = winnerLine?.includes(index) ?? false;
 
       rowSquares.push(
@@ -103,8 +105,8 @@ export default function Game() {
         (square, i) => square !== prevSquares[i],
       );
 
-      const row = Math.floor(changedIndex / 3) + 1;
-      const col = (changedIndex % 3) + 1;
+      const row = Math.floor(changedIndex / BOARD_SIZE) + 1;
+      const col = (changedIndex % BOARD_SIZE) + 1;
 
       movePosition = ` (${row}, ${col})`;
     }
