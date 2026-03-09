@@ -140,7 +140,9 @@ export default function Game() {
         <button className="toggle" onClick={handleToggle}>
           {isAscending ? "Asc" : "Desc"}
         </button>
-        <ol>{isAscending ? moves : [...moves].reverse()}</ol>
+        <ol reversed={!isAscending}>
+          {isAscending ? moves : [...moves].reverse()}
+        </ol>
       </div>
     </div>
   );
